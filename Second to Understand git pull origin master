@@ -1,0 +1,7 @@
+This is the second file I am adding to Remote Repo.
+The purpose is to undestand how we can download these files onto local repo.
+C:WhereYOuWantToDownload>git clone https://github.com/habibrehmaan/PostManCodeStudio1.git (link from the remote repo)
+This command will download the entire code from github for the very first time.
+Next time when you download the updated code, you will use PULL command only not CLONE.
+So second time when downloading the updated code or additional file 
+git pull origin master

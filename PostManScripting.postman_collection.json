@@ -1,0 +1,100 @@
+{
+	"info": {
+		"_postman_id": "60b8a1b3-e6c6-4583-99c9-fe4b3f10edf4",
+		"name": "PostManScripting",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12883065"
+	},
+	"item": [
+		{
+			"name": "Get 2nd User",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.globals.set(\"userid\", 2);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Status Code Validation\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"//Multiple Assertions\r",
+							"pm.test(\"Validate Multiple Fileds in Response\"), function(){\r",
+							"    responseJson = pm.response.json();\r",
+							"    pm.expect(responseJson.data.id).to.eql(2); \r",
+							"    pm.expect(responseJson.data.email).to.eql(\"janet.weaver@reqres.in\"); \r",
+							"    pm.expect(responseJson.data.first_name).to.eql(\"Janet\");\r",
+							"    pm.expect(responseJson.data.last_name).to.eql(\"Weaver\");\r",
+							"};\r",
+							"    //Handling responses that don't parse:\r",
+							"    pm.test(\"Body contains string\", function() {\r",
+							"    pm.expect(pm.response.text()).to.include(\"janet.weaver@reqres.in\")    \r",
+							"    });\r",
+							"// Status code being one of a set\r",
+							"pm.test(\"Successful status code\", function (){\r",
+							"pm.expect(pm.response.code).to.be.oneOf([200, 201, 202])\r",
+							"});\r",
+							"\r",
+							"// Testing Headers\r",
+							"pm.test(\"Content-Type Header is Present\", function(){\r",
+							"pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							"\r",
+							"// Testing values in Header\r",
+							"pm.test(\"Content-Type Value\", function() {\r",
+							"pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json; charset=utf-8\");\r",
+							"});\r",
+							"\r",
+							"// Testing Cookies (whether cookies are present or not)\r",
+							"pm.test(\"Cookie is present\" , function () {\r",
+							"pm.expect(pm.cookies.has(\"\")).to.be.true;\r",
+							"});\r",
+							"// this test will fail as there are no cookies present\r",
+							"// Testing the Cookie value\r",
+							"pm.test(\"Cookie Value Check\" , function () {\r",
+							"pm.expect(pm.cookies.get(\"abc\")).to.eql(\"abcd\");\r",
+							"});\r",
+							"// the above test will also fail as there are no cookies available\r",
+							"// RESPONSE TIME\r",
+							"pm.test(\"Response Time Less Than 130 ms\" , function () {\r",
+							"pm.expect(pm.response.responseTime).be.below(130);\r",
+							"});\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://reqres.in/api/users/{{userid}}",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users",
+						"{{userid}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
